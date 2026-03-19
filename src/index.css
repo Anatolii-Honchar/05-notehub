@@ -25,21 +25,22 @@ body {
     "Helvetica Neue",
     sans-serif;
   line-height: 1.5;
-  background-color: #ffffff;
-  color: #212121;
+  background-color: #f1f3f5; /* трохи світліший фон під твої картки */
+  color: #212529; /* узгоджено з NoteForm / NoteList */
 }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+/* Скидання стандартних відступів */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
 }
 
-button {
-  cursor: pointer;
-  font-family: inherit;
-}
-
+/* Списки */
 ul,
 ol {
   margin: 0;
@@ -47,6 +48,27 @@ ol {
   list-style: none;
 }
 
+/* Зображення */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Кнопки */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Інпути */
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Посилання */
 a {
   text-decoration: none;
   color: inherit;
