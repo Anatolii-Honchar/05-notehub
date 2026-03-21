@@ -1,27 +1,48 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+
 import { fetchNotes } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
+import Pagination from "../Pagination/Pagination";
+
 import css from "./App.module.css";
 
 export default function App() {
+  // 🔹 state сторінки
+  const [page, setPage] = useState(1);
+
+  // 🔹 запит нотаток
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["notes"],
-    queryFn: () => fetchNotes(1, ""),
+    queryKey: ["notes", page],
+    queryFn: () => fetchNotes(page, ""),
   });
 
+  // 🔹 безпечне отримання даних
   const notes = data?.notes ?? [];
+  const totalPages = data?.totalPages ?? 0;
 
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        {/* SearchBox */}
+        {/* SearchBox буде тут */}
+
         {/* Pagination */}
-        {/* Button */}
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
+        )}
+
+        {/* Кнопка створення нотатки буде тут */}
       </header>
 
+      {/* Стани */}
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading notes</p>}
 
+      {/* Список нотаток */}
       {notes.length > 0 && <NoteList notes={notes} />}
     </div>
   );

@@ -24,6 +24,7 @@ export const fetchNotes = async (
   const response = await instance.get("/notes", {
     params: {
       page,
+      perPage: 12,
       search,
     },
   });
