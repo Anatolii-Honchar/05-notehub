@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-
 import { fetchNotes } from "../../services/noteService";
 import NoteList from "../NoteList/NoteList";
 import Pagination from "../Pagination/Pagination";
-
 import css from "./App.module.css";
+import Modal from "../Modal/Modal";
+import NoteForm from "../NoteForm/NoteForm";
 
 export default function App() {
   // 🔹 state сторінки
   const [page, setPage] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 🔹 запит нотаток
   const { data, isLoading, isError } = useQuery({
@@ -25,8 +26,6 @@ export default function App() {
     <div className={css.app}>
       <header className={css.toolbar}>
         {/* SearchBox буде тут */}
-
-        {/* Pagination */}
         {totalPages > 1 && (
           <Pagination
             currentPage={page}
@@ -35,8 +34,16 @@ export default function App() {
           />
         )}
 
-        {/* Кнопка створення нотатки буде тут */}
+        <button className={css.button} onClick={() => setIsModalOpen(true)}>
+          Create note +
+        </button>
       </header>
+
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)}>
+          <NoteForm onClose={() => setIsModalOpen(false)} />
+        </Modal>
+      )}
 
       {/* Стани */}
       {isLoading && <p>Loading...</p>}
