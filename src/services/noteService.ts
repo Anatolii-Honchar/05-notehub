@@ -21,7 +21,7 @@ export const fetchNotes = async (
   page: number,
   search: string,
 ): Promise<FetchNotesResponse> => {
-  const response = await instance.get("/notes", {
+  const response = await instance.get<FetchNotesResponse>("/notes", {
     params: {
       page,
       perPage: 12,
@@ -39,11 +39,11 @@ interface CreateNotePayload {
 }
 
 export const createNote = async (payload: CreateNotePayload): Promise<Note> => {
-  const response = await instance.post("/notes", payload);
+  const response = await instance.post<Note>("/notes", payload);
   return response.data;
 };
 
 export const deleteNote = async (id: string): Promise<Note> => {
-  const response = await instance.delete(`/notes/${id}`);
+  const response = await instance.delete<Note>(`/notes/${id}`);
   return response.data;
 };

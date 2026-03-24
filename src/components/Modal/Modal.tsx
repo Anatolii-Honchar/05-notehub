@@ -22,6 +22,19 @@ export default function Modal({ children, onClose }: ModalProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
+  useEffect(() => {
+    // зберігаємо попереднє значення
+    const originalOverflow = document.body.style.overflow;
+
+    // блокуємо скрол
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      // повертаємо назад
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   // Backdrop click
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
